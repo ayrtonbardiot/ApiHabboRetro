@@ -1,20 +1,20 @@
 <?php
 //by Notaryz
-ini_set('display_errors', 1);
-$hote = ""; //HOTE DB - HOST DB
-$user = ""; //UTILISATEUR DB - USER DB
-$pass = ""; //MDP DB - PASSWORD OF THE USER
-$db = ""; //VOTRE DB - YOUR DATABASE
+ini_set('display_errors', 0);
+define('hote', ''); //HOTE DB - HOST DB
+define('user', ''); //UTILISATEUR DB - USER DB
+define('pass', ''); //MDP DB - PASSWORD OF THE USER
+define('db', ''); //VOTRE DB - YOUR DATABASE
 
-$emu = ""; //VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
+define('emu', '');//VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
 
-$habbo_imager = "http://www.avatar-api.com/habbo-imaging/avatarimage.php?figure="; //L'HABBO IMAGER QUE VOUS SOUHAITEZ UTILISER - HABBO IMAGER WHICH YOU WILL USE
+define('habbo_imager', 'http://www.avatar-api.com/habbo-imaging/avatarimage.php?figure=');//L'HABBO IMAGER QUE VOUS SOUHAITEZ UTILISER - HABBO IMAGER WHICH YOU WILL USE
 
 try {
-    $dbh = new PDO('mysql:host='.$hote.';dbname='.$db.'', ''.$user.'', ''.$pass.'');
+    $dbh = new PDO('mysql:host='.hote.';dbname='.db.'', ''.user.'', ''.pass.'');
 }
 catch (PDOException $e) {
-    print ("<div style='background-repeat: no-repeat;
+    echo ("<div style='background-repeat: no-repeat;
 		background-position: 10px 50%;
 		padding: 10px 10px 10px 10px;
 		-moz-border-radius: 5px;
@@ -30,8 +30,8 @@ catch (PDOException $e) {
 		font-family: Tahoma;'><b>Erreur de configuration:</b><br>Impossible de se connecter à la base de données !</div>");
     die();
 }
-if ($hote == null OR $user == null OR $db == null){
-    print ("<div style='background-repeat: no-repeat;
+if (hote == null OR user == null OR db == null){
+    echo ("<div style='background-repeat: no-repeat;
 		background-position: 10px 50%;
 		padding: 10px 10px 10px 10px;
 		-moz-border-radius: 5px;
@@ -47,33 +47,33 @@ if ($hote == null OR $user == null OR $db == null){
 		font-family: Tahoma;'><b>API Habbo Imager</b><br>Il semblerait que vous n'avez pas encore configuré la base de données !</div>");
     die();
 }
-if($_GET['parametre'] == "nb_connectes"){
-    switch($emu){
+if($_GET['parametres'] == "nb_connectes"){
+    switch(emu){
 
         case "arcturus":
             $stmt = $dbh->prepare("SELECT count(online) FROM users WHERE online = '1'");
             $stmt->execute();
             $online = $stmt->fetch();
-            print $online['count(online)'];
+            echo $online['count(online)'];
             break;
         case "comet":
             $stmt1 = $dbh->prepare("SELECT count(online) FROM players WHERE online = '1'");
             $stmt1->execute();
             $online1 = $stmt1->fetch();
-            print $online1['count(online)'];
+            echo $online1['count(online)'];
             break;
         case "plusemu":
             $stmt2 = $dbh->prepare("SELECT count(online) FROM users WHERE online = '1'");
             $stmt2->execute();
             $online2 = $stmt2->fetch();
-            print $online2['count(online)'];
+            echo $online2['count(online)'];
             break;
     }
 
 }
-if($_GET['parametre'] == "look") {
+if($_GET['parametres'] == "look") {
     $username = htmlspecialchars($_GET['username']);
-    switch ($emu) {
+    switch (emu) {
         case "arcturus":
             $stmt = $dbh->prepare("SELECT look FROM users WHERE username = :username");
             $stmt->execute(array(
@@ -81,11 +81,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row = $stmt->fetch();
             if ($stmt->rowCount() == 1) {
-                print '<img src="' . $habbo_imager . '' . $row['look'] . '" alt="' . $username . '">';
+                echo '<img src="' . habbo_imager . '' . $row['look'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                print 'Veuillez entrer un pseudo !';
+                echo 'Veuillez entrer un pseudo !';
             } else {
-                print 'Ce joueur n\'existe pas !';
+                echo 'Ce joueur n\'existe pas !';
             }
             break;
         case "comet":
@@ -95,11 +95,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row1 = $stmt1->fetch();
             if ($stmt1->rowCount() == 1) {
-                print '<img src="' . $habbo_imager . '' . $row1['figure'] . '" alt="' . $username . '">';
+                echo '<img src="' . habbo_imager . '' . $row1['figure'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                print 'Veuillez entrer un pseudo !';
+                echo 'Veuillez entrer un pseudo !';
             } else {
-                print 'Ce joueur n\'existe pas !';
+                echo 'Ce joueur n\'existe pas !';
             }
             break;
         case "plusemu":
@@ -109,11 +109,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row2 = $stmt2->fetch();
             if ($stmt2->rowCount() == 1) {
-                print '<img src="' . $habbo_imager . '' . $row2['look'] . '" alt="' . $username . '">';
+                echo '<img src="' . habbo_imager . '' . $row2['look'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                print 'Veuillez entrer un pseudo !';
+                echo 'Veuillez entrer un pseudo !';
             } else {
-                print 'Ce joueur n\'existe pas !';
+                echo 'Ce joueur n\'existe pas !';
             }
             break;
 
