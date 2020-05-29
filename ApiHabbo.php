@@ -1,12 +1,12 @@
 <?php
 //by Notaryz
-ini_set('display_errors', 0);
-define('hote', ''); //HOTE DB - HOST DB
-define('user', ''); //UTILISATEUR DB - USER DB
+ini_set('display_errors', 1);
+define('hote', '127.0.0.1'); //HOTE DB - HOST DB
+define('user', 'root'); //UTILISATEUR DB - USER DB
 define('pass', ''); //MDP DB - PASSWORD OF THE USER
-define('db', ''); //VOTRE DB - YOUR DATABASE
+define('db', 'arcturus'); //VOTRE DB - YOUR DATABASE
 
-define('emu', '');//VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
+define('emu', 'arcturus');//VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
 
 define('habbo_imager', 'http://www.avatar-api.com/habbo-imaging/avatarimage.php?figure=');//L'HABBO IMAGER QUE VOUS SOUHAITEZ UTILISER - HABBO IMAGER WHICH YOU WILL USE
 
@@ -47,7 +47,7 @@ if (hote == null OR user == null OR db == null){
 		font-family: Tahoma;'><b>API Habbo Imager</b><br>Il semblerait que vous n'avez pas encore configuré la base de données !</div>");
     die();
 }
-if($_GET['parametres'] == "nb_connectes"){
+if(isset($_GET['nb_connectes']) ){
     switch(emu){
 
         case "arcturus":
@@ -71,7 +71,7 @@ if($_GET['parametres'] == "nb_connectes"){
     }
 
 }
-if($_GET['parametres'] == "look") {
+if(isset($_GET['username'])) {
     $username = htmlspecialchars($_GET['username']);
     switch (emu) {
         case "arcturus":
