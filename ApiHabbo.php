@@ -14,7 +14,7 @@ try {
     $dbh = new PDO('mysql:host='.$hote.';dbname='.$db.'', ''.$user.'', ''.$pass.'');
 }
 catch (PDOException $e) {
-    echo ("<div style='background-repeat: no-repeat;
+    print ("<div style='background-repeat: no-repeat;
 		background-position: 10px 50%;
 		padding: 10px 10px 10px 10px;
 		-moz-border-radius: 5px;
@@ -31,7 +31,7 @@ catch (PDOException $e) {
     die();
 }
 if ($hote == null OR $user == null OR $db == null){
-    echo ("<div style='background-repeat: no-repeat;
+    print ("<div style='background-repeat: no-repeat;
 		background-position: 10px 50%;
 		padding: 10px 10px 10px 10px;
 		-moz-border-radius: 5px;
@@ -54,19 +54,19 @@ if($_GET['parametre'] == "nb_connectes"){
             $stmt = $dbh->prepare("SELECT count(online) FROM users WHERE online = '1'");
             $stmt->execute();
             $online = $stmt->fetch();
-            echo $online['count(online)'];
+            print $online['count(online)'];
             break;
         case "comet":
             $stmt1 = $dbh->prepare("SELECT count(online) FROM players WHERE online = '1'");
             $stmt1->execute();
             $online1 = $stmt1->fetch();
-            echo $online1['count(online)'];
+            print $online1['count(online)'];
             break;
         case "plusemu":
             $stmt2 = $dbh->prepare("SELECT count(online) FROM users WHERE online = '1'");
             $stmt2->execute();
             $online2 = $stmt2->fetch();
-            echo $online2['count(online)'];
+            print $online2['count(online)'];
             break;
     }
 
@@ -81,11 +81,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row = $stmt->fetch();
             if ($stmt->rowCount() == 1) {
-                echo '<img src="' . $habbo_imager . '' . $row['look'] . '" alt="' . $username . '">';
+                print '<img src="' . $habbo_imager . '' . $row['look'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                echo 'Veuillez entrer un pseudo !';
+                print 'Veuillez entrer un pseudo !';
             } else {
-                echo 'Ce joueur n\'existe pas !';
+                print 'Ce joueur n\'existe pas !';
             }
             break;
         case "comet":
@@ -95,11 +95,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row1 = $stmt1->fetch();
             if ($stmt1->rowCount() == 1) {
-                echo '<img src="' . $habbo_imager . '' . $row1['figure'] . '" alt="' . $username . '">';
+                print '<img src="' . $habbo_imager . '' . $row1['figure'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                echo 'Veuillez entrer un pseudo !';
+                print 'Veuillez entrer un pseudo !';
             } else {
-                echo 'Ce joueur n\'existe pas !';
+                print 'Ce joueur n\'existe pas !';
             }
             break;
         case "plusemu":
@@ -109,11 +109,11 @@ if($_GET['parametre'] == "look") {
             ));
             $row2 = $stmt2->fetch();
             if ($stmt2->rowCount() == 1) {
-                echo '<img src="' . $habbo_imager . '' . $row2['look'] . '" alt="' . $username . '">';
+                print '<img src="' . $habbo_imager . '' . $row2['look'] . '" alt="' . $username . '">';
             } else if (strlen($username) <= 1) {
-                echo 'Veuillez entrer un pseudo !';
+                print 'Veuillez entrer un pseudo !';
             } else {
-                echo 'Ce joueur n\'existe pas !';
+                print 'Ce joueur n\'existe pas !';
             }
             break;
 
