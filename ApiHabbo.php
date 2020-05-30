@@ -1,19 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
 <?php
 //by Notaryz
-ini_set('display_errors', 1);
-define('hote', '127.0.0.1'); //HOTE DB - HOST DB
-define('user', 'root'); //UTILISATEUR DB - USER DB
+ini_set('display_errors', 0);
+define('hote', ''); //HOTE DB - HOST DB
+define('user', ''); //UTILISATEUR DB - USER DB
 define('pass', ''); //MDP DB - PASSWORD OF THE USER
-define('db', 'arcturus'); //VOTRE DB - YOUR DATABASE
+define('db', ''); //VOTRE DB - YOUR DATABASE
 
-define('emu', 'arcturus');//VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
+define('emu', '');//VOTRE EMULATEUR CHOIX : ARCTURUS, PLUSEMU, COMET - YOUR EMULATOR CHOICE : ARCTURUS, PLUSEMU, COMET
 
 define('habbo_imager', 'http://www.avatar-api.com/habbo-imaging/avatarimage.php?figure=');//L'HABBO IMAGER QUE VOUS SOUHAITEZ UTILISER - HABBO IMAGER WHICH YOU WILL USE
 
 try {
-    $dbh = new PDO('mysql:host='.hote.';dbname='.db.'', ''.user.'', ''.pass.'');
+    $dbh = new PDO('mysql:host='.hote.';dbname='.db.';charset=utf8mb4', ''.user.'', ''.pass.'');
 }
 catch (PDOException $e) {
+    define('errorSql', $e->getMessage());
     echo ("<div style='background-repeat: no-repeat;
 		background-position: 10px 50%;
 		padding: 10px 10px 10px 10px;
@@ -27,7 +34,7 @@ catch (PDOException $e) {
 		display: table;
 		margin: 0 auto;
 		font-size: 15px;
-		font-family: Tahoma;'><b>Erreur de configuration:</b><br>Impossible de se connecter à la base de données !</div>");
+		font-family: Tahoma;'><b>Erreur de configuration:</b><br>Impossible de se connecter à la base de données ! '".errorSql."</div></body></html>");
     die();
 }
 if (hote == null OR user == null OR db == null){
@@ -122,3 +129,5 @@ if(isset($_GET['username'])) {
     }
 
 }
+?>
+</html>
